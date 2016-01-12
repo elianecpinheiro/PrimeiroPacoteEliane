@@ -1,0 +1,44 @@
+devtools::load_all(".") ctrl shift l
+
+devtools::document() ctrl shift d
+
+#incluir base de dados no pacote
+mtcars2<-mtcars
+devtools::use_data(mtcars2)
+
+devtools::load_all(".") ctrl shift l
+
+devtools::use_package('mgcv')
+
+#para habilitar uma função de algum pacote pode fazer de 4 formas
+
+#1
+modelar<-function(formula,dados){
+  mgcv::gam(formula,data=dados)
+}
+
+#2
+#'importFrom mgcv gam
+modelar<-function(formula,dados){
+ gam(formula,data=dados)
+}
+
+#3
+#'import mgcv
+modelar<-function(formula,dados){
+  gam(formula,data=dados)
+}
+
+#4
+no arqivo DESCRIPTION em
+Depends: R(>=3.2.2),
+    mgcv /*nome do pacote*/
+
+# ctrl shift k - para fazer a vignette
+#para disponibilizar a vignette fazer
+devtools::install(build_vignettes=TRUE)
+
+#para adicionar uma vignette - documento para informar o que se pode fazer com  o pacote.
+devtools::use_vignette('PrimeiroPacoteEliane')
+#para ver a vignette
+vignette('nome_da_vignette',package='nome_do_package')
